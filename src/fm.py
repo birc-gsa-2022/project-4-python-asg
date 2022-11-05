@@ -95,7 +95,7 @@ def get_L_interval(letter: str, alphabet, quant):
     return interval
 
 
-def get_L_rows(letter: str, interval: tuple, index, red_L_tally, L):
+def get_L_rows(letter, interval, index, red_L_tally, L):
     above_val = 0 
     end_val = 0 
     counts = 0
@@ -144,7 +144,7 @@ def find_pattern_interval(pattern, alphabet, index, red_L_tally, quant, L):
     return interval
 
 
-def get_SA_offsets(SA_interval: tuple, red_SA, L, red_L_tally, index, alphabet, quant):
+def get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant):
     
     if SA_interval == '' or SA_interval == None or SA_interval == []:
         return []
@@ -182,7 +182,6 @@ def get_SA_offsets(SA_interval: tuple, red_SA, L, red_L_tally, index, alphabet, 
 
 
 def read_fasta(inFile):
-    # load input:
     lines = inFile.readlines()
     record_list = []
     header = ''
@@ -218,29 +217,29 @@ def read_fastq(inFile):
     return record_list
 
 
-def write_FM_structures(name: str, alphabet, quant, index, red_SA, F, L, red_L_tally):
+def write_FM_structures(genome_name, name, alphabet, quant, index, red_SA, F, L, red_L_tally):
     
-    os.mkdir(name)
+    os.makedirs('{}/{}/'.format(genome_name,name))
     
-    with open('{}/alphabet.txt'.format(name), 'w') as f:
+    with open('{}/{}/alphabet.txt'.format(genome_name,name), 'w') as f:
         print(alphabet, file=f)
         
-    with open('{}/quant.txt'.format(name), 'w') as f:
+    with open('{}/{}/quant.txt'.format(genome_name,name), 'w') as f:
         print(quant, file=f)
     
-    with open('{}/index.txt'.format(name), 'w') as f:
+    with open('{}/{}/index.txt'.format(genome_name,name), 'w') as f:
         print(index, file=f)
     
-    with open('{}/red_SA.txt'.format(name), 'w') as f:
+    with open('{}/{}/red_SA.txt'.format(genome_name,name), 'w') as f:
         print(red_SA, file=f)
         
-    with open('{}/F.txt'.format(name), 'w') as f:
+    with open('{}/{}/F.txt'.format(genome_name,name), 'w') as f:
         print(F, file=f)
     
-    with open('{}/L.txt'.format(name), 'w') as f:
+    with open('{}/{}/L.txt'.format(genome_name,name), 'w') as f:
         print(L, file=f)
         
-    with open('{}/red_L_tally.txt'.format(name), 'w') as f:
+    with open('{}/{}/red_L_tally.txt'.format(genome_name,name), 'w') as f:
         print(red_L_tally, file=f)
         
 
@@ -294,9 +293,12 @@ def main():
 
     if args.p:
         # print(f"Preprocess {args.genome}")
-        genome = read_fasta(args.genome)
-        alphabet, quant, index, red_SA, F, L, red_L_tally = FM_structures(genome[0][1])
-        write_FM_structures('Preprocessed_genome', alphabet, quant, index, red_SA, F, L, red_L_tally)
+        fasta_recs = read_fasta(args.genome)
+        for fa_rec in fasta_recs:
+            alphabet, quant, index, red_SA, F, L, red_L_tally = FM_structures(fa_rec)
+            try: genome_name = args.genome.name.split('/')[1]
+            except: genome_name = args.genome.name
+            write_FM_structures('{}'.format(genome_name),'Preprocessed_{}'.format(fa_rec[0]), alphabet, quant, index, red_SA, F, L, red_L_tally)
     else:
         # print(f"Search {args.genome} for {args.reads}")
         if args.reads is None:
