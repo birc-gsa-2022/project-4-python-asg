@@ -294,10 +294,9 @@ def main():
 
     if args.p:
         # print(f"Preprocess {args.genome}")
-        fasta_recs = read_fasta(args.genome)
-        for fa_rec in fasta_recs:
-            alphabet, quant, index, red_SA, F, L, red_L_tally = FM_structures(fa_rec)
-            write_FM_structures('Preprocessed_{}'.format(fa_rec[0]), alphabet, quant, index, red_SA, F, L, red_L_tally)
+        genome = read_fasta(args.genome)
+        alphabet, quant, index, red_SA, F, L, red_L_tally = FM_structures(genome[0][1])
+        write_FM_structures('Preprocessed_genome', alphabet, quant, index, red_SA, F, L, red_L_tally)
     else:
         # print(f"Search {args.genome} for {args.reads}")
         if args.reads is None:
