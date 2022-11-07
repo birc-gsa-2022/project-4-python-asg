@@ -26,21 +26,27 @@ All files are stored (as the representation) of either a dict or list in a seper
 This is not the most elegant or sufficient way of storing this information, but it is easy - and i plan to use min-LCP skipping for my final project, so there ill only have to store the suffix array as a single file. 
 
 ## Insights you may have had while implementing the algorithm
-The implementation i found quite hard since you kind of have to do multiple things at a time since we are using all these different tables/data-structures simuntaniusly.  
+
+# ANWSER:
+Using all these different tables/data-structures simuntaniusly. 
 
 ## Problems encountered if any
+
+# ANWSER:
 ...
 
 ## Validation
 
 *How did you validate that the preprocessing and the search algorithm works?*
 
-I generated/simulated a bunch of random dna strings and exact patterns. I used these to compare the performance of my implementation against the naive algorithm. 
+# ANWSER:
+I generated/simulated a bunch of random dna strings (and exact patterns). I used these to compare the performance of my implementation against the naive algorithm. 
 
 ## Running time
 
 *List experiments and results that show that both the preprocessing algorithm and the search algorithm works in the expected running time. Add figures by embedding them here, as you learned how to do in project 1.*
 
+# ANWSER:
 
 Runtimes of datasrtucture construction (F, L, reduced SA, reduced table of accumulating counts of L):
 ![](figs/read_lengths.png)
