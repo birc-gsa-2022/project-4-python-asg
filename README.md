@@ -1,4 +1,3 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9205032&assignment_repo_type=AssignmentRepo)
 # Project 4: BWT-based matching (FM-index)
 
 Now that you have a functioning suffix array, you should implement the BWT-based search, also known as FM-index. This algorithm improves the search in the suffix array from O(m log n + z) to O(m + z) after O(n) preprocessing (plus whatever time it takes you to build your suffix array).
@@ -18,17 +17,43 @@ Once you have implemented the `fm` program (and tested it to the best of your ab
 # Report
 
 ## Preprocessing
-
 *What preprocessing data do you store in files, and how?*
 
+# ANWSER:
+I store the alphabet (.txt file), quantification of each letter (.txt file), an index of each letters lex-order (.txt file), the bwt F column (.txt file), the bwt L column (.txt file), a reduced table containing the accumulated counts of each letter of the L column (.txt file), and a reduced SA array (.txt file). 
+
+All files are stored (as the representation) of either a dict or list in a seperate dir for each fasta rec.
+This is not the most elegant or sufficient way of storing this information, but it is easy - and i plan to use min-LCP skipping for my final project, so there ill only have to store the suffix array as a single file. 
+
 ## Insights you may have had while implementing the algorithm
+The implementation i found quite hard since you kind of have to do multiple things at a time since we are using all these different tables/data-structures simuntaniusly.  
 
 ## Problems encountered if any
+...
 
 ## Validation
 
 *How did you validate that the preprocessing and the search algorithm works?*
 
+I generated/simulated a bunch of random dna strings and exact patterns. I used these to compare the performance of my implementation against the naive algorithm. 
+
 ## Running time
 
 *List experiments and results that show that both the preprocessing algorithm and the search algorithm works in the expected running time. Add figures by embedding them here, as you learned how to do in project 1.*
+
+
+Runtimes of datasrtucture construction (F, L, reduced SA, reduced table of accumulating counts of L):
+![](figs/read_lengths.png)
+
+
+Runtimes for varying read lengths:
+![](figs/ref_lengths.png)
+
+
+I make the F and L columns using my prefig-doubling SA construction algorithm from last project (O(n Log(n))).
+I guess the extra forloop to make F/L from the SA gives a total runtime of O(n Log(n) + n)?
+
+So the teoretical runtime for the read mapping part is O(n) (since the lookup in the tables are O(1)). My runtimes look pretty constant which i expect is because my get_SA_offsets() function runs pretty slow and therefore blurs whats going on behind it. 
+
+
+
