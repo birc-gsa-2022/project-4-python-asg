@@ -133,6 +133,9 @@ def LF_mapping(letter, n, first_rank, alphabet, quant):
 
 
 def find_pattern_interval(pattern, alphabet, index, red_L_tally, quant, L):
+    if pattern == '' or pattern == None or pattern == []:
+        return []
+        
     j = len(pattern)-1
     interval = get_L_interval(pattern[j], alphabet, quant)
     while j > 0:
