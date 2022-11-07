@@ -49,11 +49,12 @@ I generated/simulated a bunch of random dna strings (and exact patterns). I used
 # ANWSER:
 
 Runtimes of datasrtucture construction (F, L, reduced SA, reduced table of accumulating counts of L):
-![](figs/read_lengths.png)
+![](figs/ref_lengths.png)
 
+#
 
 Runtimes for varying read lengths:
-![](figs/ref_lengths.png)
+![](figs/read_lengths.png)
 
 
 I make the F and L columns using my prefig-doubling SA construction algorithm from last project (O(n Log(n))).
