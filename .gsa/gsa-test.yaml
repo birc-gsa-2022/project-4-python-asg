@@ -6,7 +6,7 @@ tools:
   GSA-KMP:
     map: "gsa search {genome} {reads} -o {outfile} exact kmp"
   fm:
-    #preprocess: "{root}/../fm -p {genome}"
+    preprocess: "{root}/../fm -p {genome}"
     map: "{root}/../fm {genome} {reads} > {outfile}"
 
 reference-tool: GSA-Naive
