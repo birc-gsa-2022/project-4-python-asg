@@ -222,27 +222,27 @@ def read_fastq(inFile):
 
 def write_FM_structures(genome_name, name, alphabet, quant, index, red_SA, F, L, red_L_tally):
     
-    os.makedirs('{}/{}/'.format(genome_name,name))
+    os.makedirs('../{}/{}/'.format(genome_name,name))
     
-    with open('{}/{}/alphabet.txt'.format(genome_name,name), 'w') as f:
+    with open('../{}/{}/alphabet.txt'.format(genome_name,name), 'w') as f:
         print(alphabet, file=f)
         
-    with open('{}/{}/quant.txt'.format(genome_name,name), 'w') as f:
+    with open('../{}/{}/quant.txt'.format(genome_name,name), 'w') as f:
         print(quant, file=f)
     
-    with open('{}/{}/index.txt'.format(genome_name,name), 'w') as f:
+    with open('../{}/{}/index.txt'.format(genome_name,name), 'w') as f:
         print(index, file=f)
     
-    with open('{}/{}/red_SA.txt'.format(genome_name,name), 'w') as f:
+    with open('../{}/{}/red_SA.txt'.format(genome_name,name), 'w') as f:
         print(red_SA, file=f)
         
-    with open('{}/{}/F.txt'.format(genome_name,name), 'w') as f:
+    with open('../{}/{}/F.txt'.format(genome_name,name), 'w') as f:
         print(F, file=f)
     
-    with open('{}/{}/L.txt'.format(genome_name,name), 'w') as f:
+    with open('../{}/{}/L.txt'.format(genome_name,name), 'w') as f:
         print(L, file=f)
         
-    with open('{}/{}/red_L_tally.txt'.format(genome_name,name), 'w') as f:
+    with open('../{}/{}/red_L_tally.txt'.format(genome_name,name), 'w') as f:
         print(red_L_tally, file=f)
         
 
