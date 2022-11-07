@@ -3,9 +3,9 @@
 import re
 import time
 import random
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import seaborn as sns
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 ################################################################
 # functions:
@@ -33,7 +33,7 @@ def FM_read_mapper(string, pattern):
 ################################################################
 # # tests:
   
-# # 1 mio test:
+# # # 1 mio test:
 # string = simulate_string(1000000)
 # start_time = time.time()
 # FM_structures(string)
@@ -41,19 +41,19 @@ def FM_read_mapper(string, pattern):
 # print(end_time-start_time)
 
 
-# Test suffixtree-algorithm vs naive-algorithm for same result:
-for i in range(50000):
-    print('Iteration nr: ', i+1)
-    ref = simulate_string(random.randint(40,100))
-    read = get_exact_read(ref, random.randint(0,30))
-    offsets = FM_read_mapper(ref, read)
-    if sorted(offsets) != sorted(naive_algorithm(ref,read)):
-        print('Algorithm mistake!')
-        print(ref)
-        print(read)
-        break
-    if i+1 == 50000:
-        print('DONE')
+# # Test suffixtree-algorithm vs naive-algorithm for same result:
+# for i in range(50000):
+#     print('Iteration nr: ', i+1)
+#     ref = simulate_string(random.randint(40,100))
+#     read = get_exact_read(ref, random.randint(0,30))
+#     offsets = FM_read_mapper(ref, read)
+#     if sorted(offsets) != sorted(naive_algorithm(ref,read)):
+#         print('Algorithm mistake!')
+#         print(ref)
+#         print(read)
+#         break
+#     if i+1 == 50000:
+#         print('DONE')
 
 
 # # Runtimes for the array construction (varying ref lengths):
@@ -111,36 +111,36 @@ for i in range(50000):
 #         # Dont know why it is nessesary to read run this chunk of code, but 
 #         # if i dont the first the first runtime is affected. Mayde something 
 #         # to do with loading the modules??
-#         SA_interval = find_pattern_interval(read_10)
-#         offsets = get_SA_offsets(SA_interval)
+#         SA_interval = find_pattern_interval(read_10, alphabet, index, red_L_tally, quant, L)
+#         offsets = get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant)
         
 #         start_time = time.time()
-#         SA_interval = find_pattern_interval(read_10)
-#         offsets = get_SA_offsets(SA_interval)
+#         SA_interval = find_pattern_interval(read_10, alphabet, index, red_L_tally, quant, L)
+#         offsets = get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant)
 #         end_time = time.time()
 #         runtimes_10_replicate.append(end_time-start_time)
         
 #         start_time = time.time()
-#         SA_interval = find_pattern_interval(read_20)
-#         offsets = get_SA_offsets(SA_interval)
+#         SA_interval = find_pattern_interval(read_20, alphabet, index, red_L_tally, quant, L)
+#         offsets = get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant)
 #         end_time = time.time()
 #         runtimes_20_replicate.append(end_time-start_time)
         
 #         start_time = time.time()
-#         SA_interval = find_pattern_interval(read_30)
-#         offsets = get_SA_offsets(SA_interval)
+#         SA_interval = find_pattern_interval(read_30, alphabet, index, red_L_tally, quant, L)
+#         offsets = get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant)
 #         end_time = time.time()
 #         runtimes_30_replicate.append(end_time-start_time)
         
 #         start_time = time.time()
-#         SA_interval = find_pattern_interval(read_40)
-#         offsets = get_SA_offsets(SA_interval)
+#         SA_interval = find_pattern_interval(read_40, alphabet, index, red_L_tally, quant, L)
+#         offsets = get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant)
 #         end_time = time.time()
 #         runtimes_40_replicate.append(end_time-start_time)
         
 #         start_time = time.time()
-#         SA_interval = find_pattern_interval(read_50)
-#         offsets = get_SA_offsets(SA_interval)
+#         SA_interval = find_pattern_interval(read_50, alphabet, index, red_L_tally, quant, L)
+#         offsets = get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant)
 #         end_time = time.time()
 #         runtimes_50_replicate.append(end_time-start_time)
         
@@ -162,4 +162,4 @@ for i in range(50000):
 # plt.tight_layout()
 # plt.show()
 
-# ################################################################
+# # ################################################################

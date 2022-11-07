@@ -68,7 +68,7 @@ def FM_structures(string):
     for i in range(len(SA)):
         F[i] = string[SA[i]]
         L[i] = string[SA[i]-1]
-        if SA[i]%10 == 0:
+        if SA[i]%20 == 0:
             reduced_SA[i] = SA[i]
     
     # Make reduced table:
@@ -76,7 +76,7 @@ def FM_structures(string):
     tally = {}
     for i in range(len(L)):
         counts[L[i]]+=1
-        if i%5 == 0 or i==len(L)-1:
+        if i%30 == 0 or i==len(L)-1:
             tally[i] = tuple(counts.values())
     
     red_SA = reduced_SA
@@ -84,7 +84,7 @@ def FM_structures(string):
     return alphabet, quant, index, red_SA, F, L, red_L_tally
 
 
-def get_L_interval(letter: str, alphabet, quant):
+def get_L_interval(letter, alphabet, quant):
     start = 0
     for i in range(len(alphabet)-1):
         if alphabet[i] == letter:
@@ -310,7 +310,6 @@ def main():
         else:
             fasta_recs = read_fasta(args.genome)
             fastq_recs = read_fastq(args.reads)
-            print(fasta_recs)
             for fa_rec in fasta_recs:
                 ref = fa_rec[1]
                 alphabet, quant, index, red_SA, F, L, red_L_tally = FM_structures(ref)
