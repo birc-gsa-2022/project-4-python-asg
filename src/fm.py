@@ -1,11 +1,10 @@
 ####################################################
 # Usage: 
 # string = 'mississippi'
-# pattern = ''
+# pattern = 'i'
 # alphabet, quant, index, red_SA, F, L, red_L_tally = FM_structures(string)
 # SA_interval = find_pattern_interval(pattern, alphabet, index, red_L_tally, quant, L)
-# offsets = get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant)
-# print(offsets)
+# matches = get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant)
 
 ####################################################
 # Libraries: 
@@ -22,7 +21,7 @@ from align import get_edits
     
 def SuffixArray(string):
     if string == '' or string == None:
-        return None
+        return []
     string += '$'
     index = {v: i for i, v in enumerate(sorted(set(string)))}
     string = [index[v] for v in string]
@@ -68,7 +67,7 @@ def FM_structures(string):
     for i in range(len(SA)):
         F[i] = string[SA[i]]
         L[i] = string[SA[i]-1]
-        if SA[i]%20 == 0:
+        if SA[i]%1 == 0:  # Set SA reduction constant! (e.g. 20)
             reduced_SA[i] = SA[i]
     
     # Make reduced table:
@@ -76,7 +75,7 @@ def FM_structures(string):
     tally = {}
     for i in range(len(L)):
         counts[L[i]]+=1
-        if i%30 == 0 or i==len(L)-1:
+        if i%1 == 0 or i==len(L)-1:  # Set Tally reduction constant! (e.g. 30)
             tally[i] = tuple(counts.values())
     
     red_SA = reduced_SA
@@ -98,6 +97,7 @@ def get_L_interval(letter, alphabet, quant):
 def get_L_rows(letter, interval, index, red_L_tally, L):
     above_val = 0 
     end_val = 0 
+    
     counts = 0
     for i in range(interval[0]-1, -1, -1):
         if i in red_L_tally:
@@ -105,15 +105,18 @@ def get_L_rows(letter, interval, index, red_L_tally, L):
             break
         if L[i] == letter:
             counts+=1
-    counts = 0
-    for i in range(interval[1], len(L)):
-        if L[i] == letter:
-            counts+=1
-        if i in red_L_tally:
-            end_val = red_L_tally[i][index[letter]] - counts
-            break
+            
     if interval[1] == len(L): 
         end_val = red_L_tally[len(L)-1][index[letter]]
+    else:
+        counts = 0
+        for i in range(interval[1], len(L)):
+            if L[i] == letter:
+                counts+=1
+            if i in red_L_tally:
+                end_val = red_L_tally[i][index[letter]] - counts
+                break
+            
     n = end_val - above_val
     rank_first = above_val
     return n, rank_first
@@ -148,7 +151,6 @@ def find_pattern_interval(pattern, alphabet, index, red_L_tally, quant, L):
 
 
 def get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant):
-    
     if SA_interval == '' or SA_interval == None or SA_interval == []:
         return []
     
@@ -158,7 +160,7 @@ def get_SA_offsets(SA_interval, red_SA, L, red_L_tally, index, alphabet, quant):
         if i in red_SA: 
             offsets.append(red_SA[i])
             continue
-        else:
+        else:  # if using reduced SA.
             S=0
             k=i
             while S==0:
@@ -221,27 +223,19 @@ def read_fastq(inFile):
 
 
 def write_FM_structures(genome_name, name, alphabet, quant, index, red_SA, F, L, red_L_tally):
-    
     os.makedirs('../{}/{}/'.format(genome_name,name))
-    
     with open('../{}/{}/alphabet.txt'.format(genome_name,name), 'w') as f:
         print(alphabet, file=f)
-        
     with open('../{}/{}/quant.txt'.format(genome_name,name), 'w') as f:
         print(quant, file=f)
-    
     with open('../{}/{}/index.txt'.format(genome_name,name), 'w') as f:
         print(index, file=f)
-    
     with open('../{}/{}/red_SA.txt'.format(genome_name,name), 'w') as f:
         print(red_SA, file=f)
-        
     with open('../{}/{}/F.txt'.format(genome_name,name), 'w') as f:
         print(F, file=f)
-    
     with open('../{}/{}/L.txt'.format(genome_name,name), 'w') as f:
         print(L, file=f)
-        
     with open('../{}/{}/red_L_tally.txt'.format(genome_name,name), 'w') as f:
         print(red_L_tally, file=f)
         
@@ -249,25 +243,18 @@ def write_FM_structures(genome_name, name, alphabet, quant, index, red_SA, F, L,
 def open_FM_structures(path_to_dir: str):
     alphabet = open('alphabet.txt', 'r').read()
     alphabet = eval(alphabet)
-    
     quant = open('quant.txt', 'r').read()
     quant = eval(quant)
-    
     index = open('index.txt', 'r').read()
     index = eval(index)
-    
     red_SA = open('red_SA.txt', 'r').read()
     red_SA = eval(red_SA)
-    
     F = open('F.txt', 'r').read()
     F = eval(F)
-    
     L = open('L.txt', 'r').read()
     L = eval(L)
-    
     red_L_tally = open('red_L_tally.txt', 'r').read()
     red_L_tally = eval(red_L_tally)
-    
     return alphabet, quant, index, red_SA, F, L, red_L_tally
 
 ####################################################
