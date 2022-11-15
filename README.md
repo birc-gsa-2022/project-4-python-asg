@@ -47,15 +47,16 @@ I generated/simulated a bunch of random DNA strings (and exact patterns). I used
 *List experiments and results that show that both the preprocessing algorithm and the search algorithm works in the expected running time. Add figures by embedding them here, as you learned how to do in project 1.*
 
 # ANWSER:
-
+ 
 Runtimes of datasrtucture construction (F, L, reduced SA, reduced table of accumulating counts of L):
+
 ![](figs/ref_lengths.png)
-
-#
-
+ 
+ 
 Runtimes for varying read lengths:
+ 
 ![](figs/read_lengths.png)
-
+ 
 
 I make the F and L columns using my prefig-doubling SA construction algorithm from last project (O(n Log(n)^2)).
 I guess the extra forloop to make F/L from the SA gives a total runtime of O(n Log(n)^2 + n)?
